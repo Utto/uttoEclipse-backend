@@ -46,6 +46,10 @@ const resolver = models => ({
 					throw new Error('Could not apply action', err);
 				});
 		},
+		auth(root, _, context) {
+			const { data } = context.request.pre.handler;
+			return data;
+		},
 	},
 	Subscription: {
 		postCreated: {

@@ -9,6 +9,7 @@
   "author": "Utto",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel": "^6.23.0",
     "babel-plugin-inline-import": "^2.0.6",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -35,12 +36,12 @@
           "targets": {
             "node": "current"
           }
-				}
+        }
       ]
     ],
     "plugins": [
-			"babel-plugin-inline-import",
-			"transform-object-rest-spread"
+      "babel-plugin-inline-import",
+      "transform-object-rest-spread"
     ]
   }
 }

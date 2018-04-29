@@ -4,9 +4,10 @@ import { graphqlHapi, graphiqlHapi } from 'graphql-server-hapi';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 
 import executableSchema from './graphql/executableSchema';
+import authMiddleware from './lib/middleware';
 import eclipse from './eclipse';
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 
 (async () => {
 	const server = new Hapi.Server({
@@ -14,15 +15,29 @@ const port = process.env.PORT || 4000;
 		port,
 	});
 
+	server.state('token', {
+		path: '/graphql',
+		ttl: null,
+		isSecure: false,
+		encoding: 'base64json',
+		isSameSite: 'Lax',
+	});
+
 	await server.register({
 		plugin: graphqlHapi,
 		options: {
 			path: '/graphql',
-			graphqlOptions: {
-				schema: executableSchema,
+			graphqlOptions: async (request) => {
+				return {
+					schema: executableSchema,
+					context: { request },
+				};
 			},
 			route: {
 				cors: true,
+				pre: [
+					{ method: authMiddleware, assign: 'handler' },
+				],
 			},
 		},
 	});

@@ -6,6 +6,15 @@ type Post {
 	checked: Boolean!
 }
 
+type User {
+	id: ID!
+	userId: String!
+	name: String!
+	token: String
+	time: String!
+	permissions: [String!]
+}
+
 type Query {
   getPostByAuthor(user: String!): [Post]
   getPosts(checked: Boolean): [Post]
@@ -14,6 +23,7 @@ type Query {
 type Mutation {
   createPost(user: String!, message: String!, checked: Boolean!): Post
 	checkPost(id: ID!, action: String!, time: Int): Post
+	auth(code: String!): User
 }
 
 type Subscription {
