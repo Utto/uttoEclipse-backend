@@ -11,16 +11,21 @@ const port = process.env.PORT || 3000;
 
 (async () => {
 	const server = new Hapi.Server({
-		routes: { cors: true },
+		routes: {
+			cors: {
+				credentials: true,
+				origin: ['*'],
+			},
+		},
 		port,
 	});
 
 	server.state('token', {
-		path: '/graphql',
-		ttl: null,
+		path: '/',
+		isHttpOnly: false,
 		isSecure: false,
-		encoding: 'base64json',
-		isSameSite: 'Lax',
+		isSameSite: false,
+		encoding: 'none',
 	});
 
 	await server.register({

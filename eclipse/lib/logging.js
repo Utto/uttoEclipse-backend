@@ -13,6 +13,8 @@ export default () => ([
 			};
 			const arr = [];
 			let checked = true;
+			let mod = false;
+			let broadcaster = false;
 
 			for (let i = 0; i < message.length; i++) {
 				const prev = message.charAt(i - 1);
@@ -28,10 +30,12 @@ export default () => ([
 			}
 
 			if (arr.length) checked = false;
+			if (user.badges.broadcaster) broadcaster = true;
+			if (user.badges.moderator) mod = true;
 
 			const post =
 			`mutation {
-				createPost(user: "${user.username}", message: "${message}", checked: ${checked}) {
+				createPost(user: "${user.username}", message: "${message}", checked: ${checked}, mod: ${mod}, broadcaster: ${broadcaster}) {
 					id,
 					message
 				} 

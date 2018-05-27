@@ -7,6 +7,8 @@ const postSchema = new Schema({
 	user: String,
 	message: String,
 	checked: Boolean,
+	mod: Boolean,
+	broadcaster: Boolean,
 });
 
 const model = Mongoose.model('Post', postSchema);

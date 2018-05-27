@@ -3,7 +3,9 @@ type Post {
 	user: String!
 	message: String!
 	date: String!,
-	checked: Boolean!
+	checked: Boolean!,
+	mod: Boolean!,
+	broadcaster: Boolean!
 }
 
 type User {
@@ -15,13 +17,20 @@ type User {
 	permissions: [String!]
 }
 
+input FiltersInput {
+	startDate: String,
+	endDate: String,
+	user: String,
+	message: String
+}
+
 type Query {
   getPostByAuthor(user: String!): [Post]
-  getPosts(checked: Boolean): [Post]
+  getPosts(checked: Boolean, id: String, filters: FiltersInput = {}): [Post]
 }
 
 type Mutation {
-  createPost(user: String!, message: String!, checked: Boolean!): Post
+  createPost(user: String!, message: String!, checked: Boolean!, mod: Boolean!, broadcaster: Boolean!): Post
 	checkPost(id: ID!, action: String!, time: Int): Post
 	auth(code: String!): User
 }
