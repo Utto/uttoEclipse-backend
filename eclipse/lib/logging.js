@@ -1,6 +1,8 @@
 import { graphql } from 'graphql';
 import executableSchema from '../../graphql/executableSchema';
 
+import escapeChars from '../helpers/escapeChars';
+
 export const name = 'Logging';
 
 export default () => ([
@@ -29,9 +31,11 @@ export default () => ([
 
 			if (arr.length) checked = false;
 
+			const safeMessage = escapeChars(message);
+
 			const post =
 			`mutation {
-				createPost(user: "${user.username}", message: "${message}", checked: ${checked}) {
+				createPost(user: "${user.username}", message: "${safeMessage}", checked: ${checked}) {
 					id,
 					message
 				} 

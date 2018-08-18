@@ -35,12 +35,12 @@
           "targets": {
             "node": "current"
           }
-				}
+        }
       ]
     ],
     "plugins": [
-			"babel-plugin-inline-import",
-			"transform-object-rest-spread"
+      "babel-plugin-inline-import",
+      "transform-object-rest-spread"
     ]
   }
 }
